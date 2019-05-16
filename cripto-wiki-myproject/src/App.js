@@ -6,6 +6,7 @@ let xhr = new XMLHttpRequest();
 class App extends Component {
   constructor(){
     super();
+    this.findResult = this.findResult.bind(this);
     this.state = {
         students:[]
     };
@@ -35,28 +36,27 @@ class App extends Component {
 
   };
   xhr.send();
+  var box1 = document.getElementById('main-container');
+  box1.style.display = 'block';
   
 }
-  // findResult() {
-  // var box = document.getElementById('main-container');
-  // box.style.display = 'block';
-  // }
+  findResult() {
+  var box = document.getElementById('main-container');
+  box.style.display = 'none';
+  }
   
   componentDidMount() {
     this.criptoCoinSearch();
-    // this.findResult();
+    this.findResult();
   }
   render() {
     return (
       <div className="App">
-      <h1>Cripto Wiki</h1>
+      <h1>Crypto Wiki</h1>
       <div className="container">
       <input type="text" id="inpt" placeholder="Enter the Crypto Currency Name" />
       <button id="btn" className="btn btn-outline-secondary" onClick= {this.criptoCoinSearch.bind(this)} >Get info About Coin</button>
       </div>
-      {/* <div>
-       
-      </div> */}
       <div id="main-container">
         <div id="frame"> 
         {this.students2.map( (item) => {
@@ -65,17 +65,17 @@ class App extends Component {
         </div>
         <div id="frame1"> 
         {this.students2.map( (item) => {
-        return <img src ={item.image.large} />
+        return <img src ={item.image.large} height="180px" width="180px" />
         })} 
          </div>
         <div id="frame2"> 
         {this.students2.map( (item) => {
-        return <p>{item.description.de}</p>
+        return <div id="detailOfCoins" dangerouslySetInnerHTML={ { __html: item.description.en } }></div>
         })}
       </div>
         <div id="frame3"> 
         {this.students2.map( (item) => {
-        return <p>Country of Origin -{item.country_origin}<br/>
+        return <p>Country of Origin -{item.country_origin}<br/><br/>
         Date of Appearance-{item.genesis_date}<br/>
         Market Cap Rank-{item.market_cap_rank}<br/>
         Coin Gecko-Rank-{item.coingecko_rank}<br/>
